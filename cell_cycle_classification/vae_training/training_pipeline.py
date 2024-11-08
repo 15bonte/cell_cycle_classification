@@ -9,7 +9,7 @@ from pythae.trainers.training_callbacks import TrainingCallback
 from pythae.models.base.base_model import BaseAE
 from pythae.trainers.base_trainer.base_training_config import BaseTrainerConfig
 
-from cell_cycle_prediction.vae_training.trainer import CustomTrainer
+from .trainer import CustomTrainer
 
 logger = logging.getLogger(__name__)
 
