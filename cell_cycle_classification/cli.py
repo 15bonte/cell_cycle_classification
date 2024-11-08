@@ -1,4 +1,4 @@
-"""CLI interface for project_name project.
+"""CLI interface for cell_cycle_classification project.
 
 Be creative! do whatever you want!
 
@@ -12,7 +12,7 @@ Be creative! do whatever you want!
 def main():  # pragma: no cover
     """
     The main function executes on commands:
-    `python -m project_name` and `$ project_name `.
+    `python -m cell_cycle_classification` and `$ cell_cycle_classification `.
 
     This is your program's entry point.
 
