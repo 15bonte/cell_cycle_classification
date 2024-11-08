@@ -16,14 +16,19 @@ class NucleusIdContainer:
     """
 
     def __init__(self, nucleus_id: Optional[str] = None) -> None:
+
+        self.track_id: Optional[int] = None
+        self.frame: Optional[int] = None
+        self.spot_id: Optional[int] = None
+        self.video_id: Optional[int] = None
+        self.phase: int = -1
+
         if nucleus_id is not None:
             if "_n" in nucleus_id:
                 video_id, nucleus_id = nucleus_id.split("_n")
                 self.video_id = int(
                     "".join([char for char in video_id if char.isdigit()])
                 )
-            else:
-                self.video_id = None
 
             nucleus_id = nucleus_id.split(".")[0]
 
@@ -40,14 +45,6 @@ class NucleusIdContainer:
             self.track_id = int(nucleus_id[:3])
             self.frame = int(nucleus_id[3:6])
             self.spot_id = int(nucleus_id[6:])
-
-        else:
-
-            self.track_id = None
-            self.frame = None
-            self.spot_id = None
-            self.video_id = None
-            self.phase = -1
 
     def init_from_spot(self, spot, track_spots):
         track_id = get_track_id(track_spots, int(spot["@ID"]))
