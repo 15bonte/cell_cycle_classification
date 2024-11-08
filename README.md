@@ -32,3 +32,7 @@ $ cell_cycle_classification
 ## Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+## Release
+
+To make a new release, manually update VERSION and create tag accordingly.
