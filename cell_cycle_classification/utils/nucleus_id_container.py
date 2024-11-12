@@ -34,8 +34,8 @@ class NucleusIdContainer:
 
             # Some have "_c", some not
             if "_c" in nucleus_id:
-                nucleus_id, self.phase = nucleus_id.split("_c")
-                self.phase = int(self.phase)
+                nucleus_id, phase = nucleus_id.split("_c")
+                self.phase = int(phase)
             else:
                 self.phase = -1
 
