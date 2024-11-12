@@ -1,8 +1,8 @@
 import torch.nn as nn
 
-from cell_cycle_prediction.backbone.encoder_resnet import ResnetEncoder
-from cell_cycle_prediction.backbone.model import FucciVAE
-from cell_cycle_prediction.utils.tools import get_final_model_path, get_vae_config
+from .encoder_resnet import ResnetEncoder
+from .model import FucciVAE
+from ..utils.tools import get_final_model_path, get_vae_config
 
 
 class FucciClassifier(nn.Module):

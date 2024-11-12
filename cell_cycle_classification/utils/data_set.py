@@ -11,9 +11,7 @@ from cnn_framework.utils.readers.images_reader import ImagesReader
 from cnn_framework.utils.readers.utils.projection import Projection
 from cnn_framework.utils.augmentations.clip import Clip
 
-from cell_cycle_prediction.utils.nucleus_id_container import (
-    NucleusIdContainer,
-)
+from .nucleus_id_container import NucleusIdContainer
 
 
 class FucciVAEDataSet(AbstractDataSet):

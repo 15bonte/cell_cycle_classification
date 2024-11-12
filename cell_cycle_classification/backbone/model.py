@@ -11,7 +11,7 @@ from pythae.models.base.base_utils import ModelOutput
 from pythae.models.vamp import VAMP
 from pythae.models.disentangled_beta_vae import DisentangledBetaVAE
 
-from cell_cycle_prediction.vae_training.fucci_vae_config import BetaVAEConfig
+from ..vae_training.fucci_vae_config import BetaVAEConfig
 
 B = 12
 A = 6 / B**2

@@ -1,6 +1,5 @@
 from matplotlib import pyplot as plt
 import numpy as np
-from torch.utils.data import DataLoader
 
 from cnn_framework.utils.data_sets.dataset_output import DatasetOutput
 from cnn_framework.utils.display_tools import display_progress

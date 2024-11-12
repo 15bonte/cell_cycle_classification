@@ -1,6 +1,6 @@
 import os
 
-from cell_cycle_prediction.vae_training.fucci_vae_config import BetaVAEConfig
+from ..vae_training.fucci_vae_config import BetaVAEConfig
 
 
 def get_final_model_path(model_pretrained_path):

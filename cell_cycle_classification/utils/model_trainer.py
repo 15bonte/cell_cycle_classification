@@ -30,21 +30,23 @@ from cnn_framework.utils.data_loader_generators.data_loader_generator import (
 )
 from cnn_framework.utils.enum import PredictMode
 
-from cell_cycle_prediction.backbone.decoder_resnet import ResnetDecoder
-from cell_cycle_prediction.backbone.encoder_resnet import ResnetEncoder
-from cell_cycle_prediction.utils.data_set import (
+from ..backbone.decoder_resnet import ResnetDecoder
+from ..backbone.encoder_resnet import ResnetEncoder
+from ..backbone.fucci_classifier import FucciClassifier
+from ..backbone.model import FucciVAE
+
+from ..vae_training.training_pipeline import CustomTrainingPipeline
+
+from .data_set import (
     FucciClassificationDataSet,
     FucciVAEDataSet,
 )
-from cell_cycle_prediction.backbone.fucci_classifier import FucciClassifier
-from cell_cycle_prediction.backbone.model import FucciVAE
-from cell_cycle_prediction.utils.euclidean_matching_metric import (
+from .euclidean_matching_metric import (
     EuclideanMatchingMetric,
 )
-from cell_cycle_prediction.utils.tools import get_final_model_path, get_vae_config
-from cell_cycle_prediction.utils.umap_tools import fit_umap_on_train, predict_umap
-from cell_cycle_prediction.vae_training.training_pipeline import CustomTrainingPipeline
-from cell_cycle_prediction.utils.vae_model_manager import VAEModelManager
+from .tools import get_final_model_path, get_vae_config
+from .umap_tools import fit_umap_on_train, predict_umap
+from .vae_model_manager import VAEModelManager
 
 
 class ModelTrainer:
