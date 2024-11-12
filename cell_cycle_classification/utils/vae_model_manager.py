@@ -48,8 +48,8 @@ class VAEModelManager(BaseVAEModelManager):
         test_metric,
         predict_mode: PredictMode,
         post_processing=None,
-    ):
-        all_predictions_np = []
+    ) -> list[np.ndarray]:
+        all_predictions_np: list[np.ndarray] = []
         for batch_idx, dl_element in enumerate(test_dl):
             # Run prediction
             if predict_mode == PredictMode.GetEmbedding:

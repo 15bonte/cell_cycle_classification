@@ -1,6 +1,7 @@
 import logging
 import os
 from copy import deepcopy
+from typing import Optional
 import torch
 
 import torch.distributed as dist
@@ -35,8 +36,8 @@ class CustomTrainer(BaseTrainer):
         # set model in train model
         self.model.train()
 
-        epoch_loss = 0
-        additional_losses = {}
+        epoch_loss: float = 0
+        additional_losses: dict[str, float] = {}
 
         for inputs in self.train_loader:
             inputs = self._set_inputs_to_device(inputs)
@@ -107,8 +108,8 @@ class CustomTrainer(BaseTrainer):
 
         self.model.eval()
 
-        epoch_loss = 0
-        additional_losses = {}
+        epoch_loss: float = 0
+        additional_losses: dict[str, float] = {}
 
         with self.amp_context:
             for inputs in self.eval_loader:
@@ -164,7 +165,7 @@ class CustomTrainer(BaseTrainer):
 
         return epoch_loss, additional_losses
 
-    def train(self, log_output_dir: str = None):
+    def train(self, log_output_dir: Optional[str] = None):
         """This function is the main training function
 
         Args:
