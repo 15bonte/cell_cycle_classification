@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 import numpy as np
 import torch
@@ -33,7 +33,7 @@ class CustomTrainingPipeline(TrainingPipeline):
         train_data: Union[np.ndarray, torch.Tensor, torch.utils.data.Dataset],
         eval_data: Union[np.ndarray, torch.Tensor, torch.utils.data.Dataset] = None,
         callbacks: Optional[list[TrainingCallback]] = None,
-    ):
+    ) -> Any:
         """
         Launch the model training on the provided data.
 

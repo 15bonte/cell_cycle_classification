@@ -15,7 +15,7 @@ def conv3x3Transposed(
     groups: int = 1,
     dilation: int = 1,
     output_padding: int = 0,
-) -> nn.Conv2d:
+) -> nn.ConvTranspose2d:
     """3x3 convolution with padding"""
     return nn.ConvTranspose2d(
         in_planes,
@@ -32,7 +32,7 @@ def conv3x3Transposed(
 
 def conv1x1Transposed(
     in_planes: int, out_planes: int, stride: int = 1, output_padding: int = 0
-) -> nn.Conv2d:
+) -> nn.ConvTranspose2d:
     """1x1 convolution"""
     return nn.ConvTranspose2d(
         in_planes,
