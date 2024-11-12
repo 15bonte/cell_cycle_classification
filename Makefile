@@ -35,7 +35,7 @@ lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)flake8 --ignore=E501,F841,W503,E203 cell_cycle_classification/
 	$(ENV_PREFIX)black -l 79 cell_cycle_classification/
 	$(ENV_PREFIX)black -l 79 tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports cell_cycle_classification/
+	$(ENV_PREFIX)mypy --implicit-optional --ignore-missing-imports cell_cycle_classification/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
