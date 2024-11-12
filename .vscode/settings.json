@@ -1,0 +1,31 @@
+{
+    "cSpell.words": [
+      "arange",
+      "conv",
+      "dsize",
+      "imread",
+      "matplotlib",
+      "optim",
+      "relu"
+    ],
+    "python.formatting.provider": "none",
+    "python.formatting.blackArgs": ["--line-length=99"],
+    "editor.formatOnSave": true,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pycodestyleArgs": ["--max-line-length=99"],
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+      "--disable=too-many-locals",
+      "--disable=missing-function-docstring",
+      "--disable=missing-module-docstring"
+    ],
+    "python.linting.enabled": true,
+    "python.pythonPath": "C:\\Users\\thoma\\anaconda3\\envs\\pytorch-env2\\python.exe",
+    "terminal.integrated.env.windows": {
+      "PYTHONPATH": "${workspaceFolder}"
+    },
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+    }
+  }
+  
