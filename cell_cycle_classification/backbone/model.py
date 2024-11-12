@@ -88,8 +88,8 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         z, _ = self._sample_gauss(mu, std)
         recon = self.decoder(z)["reconstruction"]
 
-        recon_x = recon[:, : x.shape[1], :, :]  # B, C, H, W
-        recon_fucci = recon[:, x.shape[1] :, :, :]  # B, C, H, W
+        recon_x = recon[:, :x.shape[1], :, :]  # B, C, H, W
+        recon_fucci = recon[:, x.shape[1]:, :, :]  # B, C, H, W
 
         loss, recon_loss, kld = self.loss_function(recon_x, x, mu, log_var, z, epoch)
 
@@ -217,7 +217,7 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         labels = labels[sorted_unique_values]
 
         # Before
-        before_x = adjacent_dapi[:, : x.shape[1], :, :]
+        before_x = adjacent_dapi[:, :x.shape[1], :, :]
         before_output = self.encoder(before_x)
         before_embedding, before_log_var = (
             before_output.embedding,
@@ -227,7 +227,7 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         before_z, _ = self._sample_gauss(before_embedding, before_std)
 
         # After
-        after_x = adjacent_dapi[:, x.shape[1] :, :, :]
+        after_x = adjacent_dapi[:, x.shape[1]:, :, :]
         after_output = self.encoder(after_x)
         after_embedding, after_log_var = (
             self.encoder(after_x).embedding,
@@ -263,8 +263,8 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         z = self.encoder(inputs).embedding
         recon = self.decoder(z)["reconstruction"]
 
-        recon_x = recon[:, : inputs.shape[1], :, :]  # B, C, H, W
-        recon_target = recon[:, inputs.shape[1] :, :, :]  # B, C, H, W
+        recon_x = recon[:, :inputs.shape[1], :, :]  # B, C, H, W
+        recon_target = recon[:, inputs.shape[1]:, :, :]  # B, C, H, W
 
         output = ModelOutput(
             recon_x=recon_x,
