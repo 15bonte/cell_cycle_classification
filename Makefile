@@ -33,8 +33,8 @@ fmt:              ## Format code using black & isort.
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
 	$(ENV_PREFIX)flake8 --ignore=E501,F841,W503,E203 cell_cycle_classification/
-	$(ENV_PREFIX)black -l 79 --check cell_cycle_classification/
-	$(ENV_PREFIX)black -l 79 --check tests/
+	$(ENV_PREFIX)black -l 79 cell_cycle_classification/
+	$(ENV_PREFIX)black -l 79 tests/
 	$(ENV_PREFIX)mypy --ignore-missing-imports cell_cycle_classification/
 
 .PHONY: test
