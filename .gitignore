@@ -130,3 +130,10 @@ dmypy.json
 
 # templates
 .github/templates/*
+
+/notebooks/wandb
+
+/models
+/data_dir
+/predictions
+/tensorboard
