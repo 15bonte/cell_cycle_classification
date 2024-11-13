@@ -10,9 +10,6 @@ class FucciVAEParser(VAEParser):
             "--prediction_loss", help="mse or reduced_mse"
         )
         self.arguments_parser.add_argument(
-            "--fucci_points", help="json with points values"
-        )
-        self.arguments_parser.add_argument(
             "--data_dir_additional", help="Additional data directory"
         )
         self.arguments_parser.add_argument(

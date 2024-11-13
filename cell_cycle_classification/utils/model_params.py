@@ -1,5 +1,18 @@
+import os
 from cnn_framework.utils.dimensions import Dimensions
 from cnn_framework.utils.model_params.vae_model_params import VAEModelParams
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def create_folder(name: str):
+    """
+    Create a folder if it does not exist.
+    """
+    root_folder = os.path.join(CURRENT_DIR, "..", "..")
+    folder_name = os.path.join(root_folder, name)
+    os.makedirs(folder_name, exist_ok=True)
+    return folder_name
 
 
 class FucciVAEModelParams(VAEModelParams):
@@ -40,24 +53,29 @@ class FucciVAEModelParams(VAEModelParams):
         self.display_umap = False
         self.fucci_points = ""  # very (very) specific json file with points values
 
+        # Create data, models and results folders
+        self.models_folder = create_folder("models")
+        self.tensorboard_folder_path = create_folder("tensorboard")
+        self.output_dir = create_folder("predictions")
+        self.data_dir = create_folder("images")
+
     def update(self, args=None):
-        # Finish by parent class as it prints the parameters
-        if args.pretraining:
-            self.pretraining = args.pretraining
-        if args.display_umap:
-            self.display_umap = args.display_umap
-        if args.zeta:
-            self.zeta = float(args.zeta)
-        if args.encoder_name:
-            self.encoder_name = args.encoder_name
-        if args.fucci_points:
-            self.fucci_points = args.fucci_points
-        if args.c:
-            self.C = float(args.c)
-        if args.warmup:
-            self.warmup = int(args.warmup)
-        if args.number_components:
-            self.number_components = int(args.number_components)
+        if args is not None:
+            # Finish by parent class as it prints the parameters
+            if args.pretraining:
+                self.pretraining = args.pretraining
+            if args.display_umap:
+                self.display_umap = args.display_umap
+            if args.zeta:
+                self.zeta = float(args.zeta)
+            if args.encoder_name:
+                self.encoder_name = args.encoder_name
+            if args.c:
+                self.C = float(args.c)
+            if args.warmup:
+                self.warmup = int(args.warmup)
+            if args.number_components:
+                self.number_components = int(args.number_components)
 
         super().update(args)
 
