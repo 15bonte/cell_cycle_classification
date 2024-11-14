@@ -9,20 +9,31 @@ from cnn_framework.utils.model_managers.utils.custom_get_encoder import get_enco
 
 
 def redefine_first_layer(model, input_channels):
-    assert input_channels >= 3
-    original_conv1_weights = model.conv1.weight.data  # Shape: (64, 3, 7, 7)
-    new_conv1 = nn.Conv2d(
-        input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False
-    )
+    if input_channels >= 3:
+        original_conv1_weights = model.conv1.weight.data  # Shape: (64, 3, 7, 7)
+        new_conv1 = nn.Conv2d(
+            input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False
+        )
 
-    # Initialize the new layer with the original weights for the first 3 channels
-    new_conv1.weight.data[:, :3, :, :] = original_conv1_weights
-    # Initialize the remaining two channels with average of the existing channels
-    new_conv1.weight.data[:, 3:, :, :] = torch.mean(
-        original_conv1_weights, dim=1, keepdim=True
-    ).repeat(1, input_channels - 3, 1, 1)
+        # Initialize the new layer with the original weights for the first 3 channels
+        new_conv1.weight.data[:, :3, :, :] = original_conv1_weights
+        # Initialize the remaining two channels with average of the existing channels
+        new_conv1.weight.data[:, 3:, :, :] = torch.mean(
+            original_conv1_weights, dim=1, keepdim=True
+        ).repeat(1, input_channels - 3, 1, 1)
 
-    model.conv1 = new_conv1
+        model.conv1 = new_conv1
+
+    else:
+        new_conv1 = nn.Conv2d(
+            input_channels, 64, kernel_size=7, stride=2, padding=3, bias=False
+        )
+        # Initialize the channels with average of the initial channels
+        new_conv1.weight.data = torch.mean(
+            model.conv1.weight.data, dim=1, keepdim=True
+        ).repeat(1, input_channels, 1, 1)
+
+        model.conv1 = new_conv1
 
 
 class ResnetEncoder(BaseEncoder):
