@@ -45,6 +45,7 @@ class FucciVAEModelParams(VAEModelParams):
         self.C = 50  # Value of the KL divergence term of the ELBO we wish to approach
         self.warmup = 0
         self.number_components = 50
+        self.num_epochs = 10
 
         self.model_pretrained_path = ""
 
