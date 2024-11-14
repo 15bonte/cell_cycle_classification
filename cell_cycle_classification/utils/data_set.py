@@ -31,12 +31,12 @@ class FucciVAEDataSet(AbstractDataSet):
                     Projection(
                         method=ProjectMethods.Channel,
                         channels=self.params.z_indexes,
-                        axis=2,
+                        axis=2,  # z-stack
                     ),
                     Projection(
                         method=ProjectMethods.Channel,
-                        channels=self.params.c_indexes + [1, 2, 3],
-                        axis=1,
+                        channels=self.params.c_indexes + [1, 2, 3],  # FUCCI x2 + mask
+                        axis=1,  # channel
                     ),
                 ]
             ],
