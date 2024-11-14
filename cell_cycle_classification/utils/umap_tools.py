@@ -10,7 +10,9 @@ from cnn_framework.utils.enum import PredictMode
 from cnn_framework.utils.model_managers.model_manager import ModelManager
 
 
-def get_predictions_names(manager: ModelManager, data_loader, post_processing=None):
+def get_predictions_names(
+    manager: ModelManager, data_loader, post_processing=None, compute_own_mean_std=False
+):
     # Return empty results if data set is empty
     if len(data_loader.dataset.names) == 0:
         return None, [], []
@@ -21,6 +23,7 @@ def get_predictions_names(manager: ModelManager, data_loader, post_processing=No
             predict_mode=PredictMode.GetEmbedding,
             nb_images_to_save=0,
             post_processing=post_processing,
+            compute_own_mean_std=compute_own_mean_std,
         )
     )
     # Iterate over data loader to get classes, names, probabilities
