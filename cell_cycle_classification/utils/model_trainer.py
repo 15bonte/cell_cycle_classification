@@ -54,8 +54,8 @@ class ModelTrainer:
         assert args.pretraining == "vae"
 
         print("\n### Training VAE on current data set ###\n")
-        params.out_channels = 2 * len(params.z_indexes)  # 2: FUCCI green and red
         params.update(args)  # update for VAE training
+        params.out_channels = 2 * len(params.z_indexes)  # 2: FUCCI green and red
         reconstruction_score = self._core_training_vae(
             params, data_set_class=FucciVAEDataSet, adapt_decoder=False
         )
