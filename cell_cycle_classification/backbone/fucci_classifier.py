@@ -33,7 +33,7 @@ class FucciClassifier(nn.Module):
         self.fc2 = nn.Linear(params.latent_dim, params.nb_classes)
 
         # Target layer for GradCam - typically for resnet18 and resnet50
-        self.target_layer = "encoder.conv_layers.layer4[-1]"
+        # self.target_layer = "encoder.conv_layers.layer4[-1]"
 
     def _load_backbone(self, folder, pretraining):
         assert pretraining == "vae"
