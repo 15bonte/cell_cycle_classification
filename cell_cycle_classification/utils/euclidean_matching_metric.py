@@ -1,3 +1,6 @@
+"""Metric to evaluate contrastive learning performance.
+Adapted from https://github.com/sthalles/SimCLR """
+
 import torch
 
 from cnn_framework.utils.metrics.positive_pair_matching_metric import (
@@ -20,7 +23,7 @@ class EuclideanMatchingMetric(PositivePairMatchingMetric):
         labels = (labels.unsqueeze(0) == labels.unsqueeze(1)).float()
         labels = labels.to(self.device)
 
-        # # Cosine similarity - original distance
+        # # Cosine similarity - original code distance
         # import torch.nn.functional as F
         # features = F.normalize(features, dim=1)
         # similarity_matrix = torch.matmul(features, features.T)

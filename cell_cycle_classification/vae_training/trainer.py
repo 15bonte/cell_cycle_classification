@@ -1,3 +1,6 @@
+"""Adapted from https://github.com/clementchadebec/benchmark_VAE/blob/6419e21558f2a6abc2da99944bddda846ded30f4/src/pythae/trainers/base_trainer/base_trainer.py#L36.
+Main change is the addition of the additional_losses dictionary in the train_step and eval_step functions."""
+
 import logging
 import os
 from copy import deepcopy

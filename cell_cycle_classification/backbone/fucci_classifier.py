@@ -1,3 +1,5 @@
+""""Cell cycle classifier."""
+
 import torch.nn as nn
 
 from .encoder_resnet import ResnetEncoder
@@ -35,7 +37,7 @@ class FucciClassifier(nn.Module):
         # Target layer for GradCam - typically for resnet18 and resnet50
         # self.target_layer = "encoder.conv_layers.layer4[-1]"
 
-    def _load_backbone(self, folder, pretraining):
+    def _load_backbone(self, folder: str, pretraining: str):
         assert pretraining == "vae"
         return FucciVAE.load_from_folder(folder)
 

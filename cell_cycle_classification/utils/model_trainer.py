@@ -1,3 +1,5 @@
+"""Module performing both self-supervised and classification learning."""
+
 import json
 import os
 import shutil

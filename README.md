@@ -1,6 +1,6 @@
 ---
 
-# cell_cycle_classification
+# Cell cycle classification
 
 <!-- [![codecov](https://codecov.io/gh/15bonte/cell_cycle_classification/branch/main/graph/badge.svg?token=cell_cycle_classification_token_here)](https://codecov.io/gh/15bonte/cell_cycle_classification) -->
 

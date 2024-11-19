@@ -36,16 +36,18 @@ class FucciVAEModelParams(VAEModelParams):
         self.reconstruction_loss = "mse"  # "mse" or "reduced_mse"
         self.kld_loss = "standard"
         self.encoder_name = "resnet18"
+        self.num_epochs = 10
 
         self.latent_dim = 256
         self.beta = 0.01  # weight of KLD loss
         self.gamma = 1e2  # weight of contrastive loss
         self.delta = 1e4  # weight of prediction loss
         self.zeta = 1  # weight of the reconstruction loss
+
+        # Not used in the final implementation
         self.C = 50  # Value of the KL divergence term of the ELBO we wish to approach
         self.warmup = 0
         self.number_components = 50
-        self.num_epochs = 10
 
         self.model_pretrained_path = ""
 

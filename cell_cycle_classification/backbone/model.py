@@ -13,6 +13,7 @@ from pythae.models.disentangled_beta_vae import DisentangledBetaVAE
 
 from ..vae_training.fucci_vae_config import BetaVAEConfig
 
+# Hard-coded values for the custom KLD loss -- not used in the final implementation
 B = 12
 A = 6 / B**2
 OPTIMAL_MEAN = np.sqrt(B) / 2
@@ -28,7 +29,8 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         decoder=None,
     ):
         BetaVAE.__init__(self, model_config, encoder, decoder)
-        # NB: DisentangledBetaVAE and VAMP are finally not used in the code
+
+        # NB: DisentangledBetaVAE and VAMP are finally not used in the final implementation
         DisentangledBetaVAE.__init__(self, model_config, encoder, decoder)
         VAMP.__init__(self, model_config, encoder, decoder)
 
@@ -75,7 +77,7 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
             else torch.zeros((x.shape[0], 2 * x.shape[1], x.shape[2], x.shape[3])).to(
                 x.device
             )
-        )
+        )  # FUCCI channels reconstruction -- not used in the final implementation
         track_ids = inputs["track_id"]
 
         epoch = kwargs.pop("epoch", self.warmup_epoch)
@@ -95,6 +97,8 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
 
         # Reconstruct FUCCI channels
         # prediction_loss = self._fucci_reconstruction_loss(recon_fucci, y)
+
+        # Predict average FUCCI values
         prediction_loss = self._fucci_avg_prediction_loss(
             encoder_output.fucci, inputs["fucci"]
         )

@@ -1,3 +1,5 @@
+"""UMAP tools"""
+
 import os
 import numpy as np
 import umap
@@ -13,9 +15,12 @@ from cnn_framework.utils.model_managers.model_manager import ModelManager
 def get_predictions_names(
     manager: ModelManager, data_loader, post_processing=None, compute_own_mean_std=False
 ):
+    """Get predictions and names from data loader."""
+
     # Return empty results if data set is empty
     if len(data_loader.dataset.names) == 0:
         return None, [], []
+
     # Get predictions
     all_predictions = np.array(
         manager.predict(
@@ -26,9 +31,9 @@ def get_predictions_names(
             compute_own_mean_std=compute_own_mean_std,
         )
     )
+
     # Iterate over data loader to get classes, names, probabilities
     predictions, classes, names = [], [], []
-
     for dl_element in data_loader:
         # Get indexes depending on model
         try:
@@ -63,7 +68,8 @@ def get_predictions_names(
     return predictions, classes, names
 
 
-def save_htlm(data, path):
+def save_htlm(data: dict, path: str) -> None:
+    """Save UMAP plot as HTML."""
     fig = go.Figure(
         data=go.Scatter(
             x=data["predictions"][:, 0],
@@ -76,7 +82,8 @@ def save_htlm(data, path):
     fig.write_html(path)
 
 
-def save_built_in(data, umap_model, path):
+def save_built_in(data: dict, umap_model, path: str) -> None:
+    """Save UMAP plot using UMAP built-in function."""
     # Update UMAP model to use predictions
     train_embedding = umap_model.embedding_
     umap_model.embedding_ = data["predictions"]
@@ -90,15 +97,16 @@ def save_built_in(data, umap_model, path):
     umap_model.embedding_ = train_embedding
 
 
-def run_predictions(data_loader: DataLoader, manager, post_processing=None):
+def run_predictions(data_loader: DataLoader, manager, post_processing=None) -> dict:
     """Perform encoder predictions given data loader."""
+
     print("Run predictions")
     (predictions, classes, names) = get_predictions_names(
         manager, data_loader, post_processing=post_processing
     )
     predictions = np.array(predictions)
 
-    # # Get CNN predictions directly
+    # # Get CNN predictions directly -- deprecated
     # try:
     #     cnn_predicted_classes_test = np.array(
     #         manager.predict(test_dl, predict_mode=PredictMode.GetPrediction)
@@ -112,7 +120,7 @@ def run_predictions(data_loader: DataLoader, manager, post_processing=None):
     # except NotImplementedError:
     #     print("\nPrediction mode is not implemented yet (most likely for Pix2pix)")
 
-    # Get DAPI values
+    # Get DAPI values -- deprecated
     # dapi_train = get_dapi_values(names_train, params)
 
     return {
@@ -122,8 +130,10 @@ def run_predictions(data_loader: DataLoader, manager, post_processing=None):
     }
 
 
-def fit_umap_on_train(train_dl, manager, params, save):
+def fit_umap_on_train(train_dl, manager, params, save: str):
+    """Fit UMAP on train data loader."""
     results_train = run_predictions(train_dl, manager)
+
     # Check if there is a class -1
     assert (
         min(
@@ -195,7 +205,7 @@ def fit_umap_on_train(train_dl, manager, params, save):
 
 
 def predict_umap(dl, umap_model, params, manager, name, save):
-    # Perform UMAP on val
+    """Predict UMAP on data loader."""
     results_val = run_predictions(dl, manager, post_processing=umap_model.transform)
 
     file_name = f"umap_{name}.html" if save == "html" else f"umap_{name}.svg"

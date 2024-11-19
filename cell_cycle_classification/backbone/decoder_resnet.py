@@ -1,3 +1,6 @@
+"""Decoder that mimics Resnet18 architecture.
+Adapted from https://github.com/eleannavali/resnet-18-autoencoder/tree/main."""
+
 from typing import Callable, Optional, Type
 import torch.nn as nn
 from torch import Tensor
@@ -5,10 +8,8 @@ from torch import Tensor
 from pythae.models.base.base_utils import ModelOutput
 from pythae.models.nn import BaseDecoder
 
-# Taken from https://github.com/eleannavali/resnet-18-autoencoder/tree/main
 
-
-def conv3x3Transposed(
+def conv3x3_transposed(
     in_planes: int,
     out_planes: int,
     stride: int = 1,
@@ -30,7 +31,7 @@ def conv3x3Transposed(
     )
 
 
-def conv1x1Transposed(
+def conv1x1_transposed(
     in_planes: int, out_planes: int, stride: int = 1, output_padding: int = 0
 ) -> nn.ConvTranspose2d:
     """1x1 convolution"""
@@ -69,12 +70,12 @@ class BasicBlockDec(nn.Module):
         if dilation > 1:
             raise NotImplementedError("Dilation > 1 not supported in BasicBlock")
         # Both self.conv1 and self.downsample layers downsample the input when stride != 1
-        self.conv1 = conv3x3Transposed(
+        self.conv1 = conv3x3_transposed(
             planes, inplanes, stride, output_padding=output_padding
         )
         self.bn1 = norm_layer(inplanes)
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = conv3x3Transposed(planes, planes)
+        self.conv2 = conv3x3_transposed(planes, planes)
         self.bn2 = norm_layer(planes)
         self.upsample = upsample
         self.stride = stride
@@ -206,7 +207,7 @@ class ResnetDecoder(BaseDecoder):
 
         if stride != 1 or self.inplanes != planes * block.expansion:
             upsample = nn.Sequential(
-                conv1x1Transposed(
+                conv1x1_transposed(
                     planes * block.expansion, last_block_dim, stride, output_padding
                 ),
                 norm_layer(last_block_dim),

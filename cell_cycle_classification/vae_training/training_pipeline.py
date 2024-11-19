@@ -1,3 +1,6 @@
+"""Adapted from https://github.com/clementchadebec/benchmark_VAE/blob/6419e21558f2a6abc2da99944bddda846ded30f4/src/pythae/pipelines/training.py#L23.
+Main change is the import of CustomTrainer instead of Trainer."""
+
 import logging
 from typing import Optional, Union
 

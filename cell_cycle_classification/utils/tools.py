@@ -3,8 +3,8 @@ import os
 from ..vae_training.fucci_vae_config import BetaVAEConfig
 
 
-def get_final_model_path(model_pretrained_path):
-    # Get list of folders inside model_pretrained_path
+def get_final_model_path(model_pretrained_path: str) -> str:
+    """Get list of folders inside model_pretrained_path."""
     sub_folders = [
         dir
         for dir in os.listdir(model_pretrained_path)
@@ -14,7 +14,7 @@ def get_final_model_path(model_pretrained_path):
     return os.path.join(model_pretrained_path, sub_folders[0], "final_model")
 
 
-def get_vae_config(params):
+def get_vae_config(params) -> BetaVAEConfig:
     return BetaVAEConfig(
         gamma=params.gamma,
         delta=params.delta,

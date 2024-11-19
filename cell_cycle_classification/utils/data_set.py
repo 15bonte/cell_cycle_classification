@@ -15,10 +15,7 @@ from .nucleus_id_container import NucleusIdContainer
 
 
 class FucciVAEDataSet(AbstractDataSet):
-    """
-    Main class.
-    Enables all configurations.
-    """
+    """Data set for self-supervised learning."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,18 +47,18 @@ class FucciVAEDataSet(AbstractDataSet):
                 max_pixel_value=1,
             ),
             # A.PadIfNeeded(
-            #     min_height=280,
-            #     min_width=280,
+            #     min_height=params.data_set_size,
+            #     min_width=params.data_set_size,
             #     border_mode=1,
             #     value=0,
             #     p=1,
             # ),
             # A.CenterCrop(
-            #     height=280,
-            #     width=280,
+            #     height=params.data_set_size,
+            #     width=params.data_set_size,
             #     p=1,
             # ),
-            # A.Resize(128, 128, always_apply=True),
+            # A.Resize(params.input_dimensions.width, params.input_dimensions.height, always_apply=True),
             Clip(min_value=0, max_value=1),  # Necessary since decoder ends with sigmoid
         ]
         if self.is_train:
@@ -76,16 +73,16 @@ class FucciVAEDataSet(AbstractDataSet):
         else:
             self.transforms = A.Compose(shared_transforms)
 
-    def generate_images(self, filename) -> DatasetOutput:
+    def generate_images(self, filename: str) -> DatasetOutput:
         image = self.input_data_source.get_image(
             filename, h5_file=self.h5_file, names=self.h5_names
         )  # YXC
 
         nb_stacks = len(self.params.z_indexes)
         return DatasetOutput(
-            input=image[..., :nb_stacks],
-            target_image=image[..., nb_stacks : 3 * nb_stacks],
-            additional=image[..., 3 * nb_stacks :],
+            input=image[..., :nb_stacks],  # DNA image
+            target_image=image[..., nb_stacks : 3 * nb_stacks],  # FUCCI image
+            additional=image[..., 3 * nb_stacks :],  # mask image
         )
 
     def get_image_sequence(
@@ -113,7 +110,9 @@ class FucciVAEDataSet(AbstractDataSet):
         np.ndarray
             Pixel mask
         """
-        current_index = self.h5_names[filename]
+        current_index = self.h5_names[
+            filename
+        ]  # designed to work even without h5 files
         track_id = NucleusIdContainer(filename).track_id
 
         # Initialize sequence and pixel masks
@@ -151,8 +150,8 @@ class FucciVAEDataSet(AbstractDataSet):
 
         return image_data, sequence_mask, pixel_mask
 
-    def __getitem__(self, idx):
-        # Read file and generate images
+    def __getitem__(self, idx: int) -> DatasetOutputVAE:
+        """Read file and generate images"""
         filename = self.names[idx]
 
         # Adjacent DAPI

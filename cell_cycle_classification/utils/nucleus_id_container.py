@@ -1,7 +1,10 @@
+"""Module dealing with file naming."""
+
 from typing import Optional
 
 
 def get_track_id(track_spots, nucleus_id):
+    """Get TrackMate track id from nucleus id."""
     for track_id, spots in track_spots.items():
         if nucleus_id in spots:
             return track_id
@@ -10,9 +13,12 @@ def get_track_id(track_spots, nucleus_id):
 
 class NucleusIdContainer:
     """
-    3 digits for track id
-    3 digits for frame
-    5 digits for spot id (sometimes 6...)
+    Container for nucleus id values.
+
+    Nucleus number is composed of:
+        - 3 digits for track id
+        - 3 digits for frame
+        - 5 digits for spot id (sometimes 6...)
     """
 
     def __init__(self, nucleus_id: Optional[str] = None) -> None:
@@ -49,7 +55,8 @@ class NucleusIdContainer:
                 self.frame = 0
                 self.spot_id = int(nucleus_id)
 
-    def init_from_spot(self, spot, track_spots):
+    def init_from_spot(self, spot, track_spots) -> None:
+        """Initialize from a TrackMate spot."""
         track_id = get_track_id(track_spots, int(spot["@ID"]))
         if track_id is None:
             return
@@ -59,6 +66,7 @@ class NucleusIdContainer:
         self.spot_id = int(spot["@ID"])
 
     def get_id_str(self) -> str:
+        """Return the nucleus number as a string."""
         assert self.track_id is not None
         assert self.frame is not None
         assert self.spot_id is not None
@@ -69,7 +77,8 @@ class NucleusIdContainer:
 
         return track_id + frame + spot_id
 
-    def get_video_track_id(self):
+    def get_video_track_id(self) -> int:
+        """Return the video track id as an int."""
         assert self.video_id is not None
         assert self.track_id is not None
 
