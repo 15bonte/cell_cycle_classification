@@ -1,32 +1,69 @@
-
 ---
+
 # cell_cycle_classification
 
-[![codecov](https://codecov.io/gh/15bonte/cell_cycle_classification/branch/main/graph/badge.svg?token=cell_cycle_classification_token_here)](https://codecov.io/gh/15bonte/cell_cycle_classification)
+<!-- [![codecov](https://codecov.io/gh/15bonte/cell_cycle_classification/branch/main/graph/badge.svg?token=cell_cycle_classification_token_here)](https://codecov.io/gh/15bonte/cell_cycle_classification) -->
+
 [![CI](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml/badge.svg)](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml)
+[![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cell_cycle_classification/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/cell_cycle_classification.svg?color=green)](https://pypi.org/project/cell_cycle_classification)
 
-Awesome cell_cycle_classification created by 15bonte
+Self-supervised learning method for cell cycle phase classification from microscopy data.
 
-## Install it from PyPI
+## Installation
 
-```bash
+### Conda environment
+
+It is highly recommended to create a dedicated conda environment, by following these few steps:
+
+1. Install an [Anaconda] distribution of Python. Note you might need to use an anaconda prompt if you did not add anaconda to the path.
+
+2. Open an Anaconda prompt as admin to create a new environment using [conda]. We advice to use python 3.10 and conda 23.10.0, to get conda-libmamba-solver as default solver.
+
+```
+conda create --name cell_cycle_classification python=3.10 conda=23.10.0
+conda activate cell_cycle_classification
+```
+
+### Package installation
+
+Once in a dedicated environment, our package can be installed via [pip]:
+
+```
 pip install cell_cycle_classification
 ```
 
-## Usage
+Alternatively, you can clone the github repo to access to notebooks.
 
-```py
-from cell_cycle_classification import BaseClass
-from cell_cycle_classification import base_function
-
-BaseClass().base_method()
-base_function()
+```
+git clone https://github.com/15bonte/cell_cycle_classification.git
+cd cell_cycle_classification
+pip install -e .
 ```
 
+### GPU
+
+We highly recommend to use GPU to speed up segmentation. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
+
+Next we need to remove the CPU version of torch:
+
 ```bash
-$ python -m cell_cycle_classification
-#or
-$ cell_cycle_classification
+pip uninstall torch
+```
+
+The GPU version of torch to be installed can be found [here](https://pytorch.org/get-started/locally/). You may choose the CUDA version supported by your GPU, and install it with conda. This package has been developed with the version 11.6, installed with this command:
+
+```bash
+conda install pytorch==1.12.1 torchvision pytorch-cuda=11.6 -c pytorch -c nvidia
+```
+
+## Update
+
+To update cell_cycle_classification to the latest version, open an Anaconda prompt and use the following commands:
+
+```bash
+conda activate cell_cycle_classification
+pip install cell_cycle_classification --upgrade
 ```
 
 ## Development
@@ -35,4 +72,18 @@ Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## Release
 
-To make a new release, manually update VERSION and create tag accordingly.
+Release is performed by updating the version number in VERSION and pushing the corresponding tag.
+
+## Issues
+
+If you encounter any problems, please [file an issue] along with a detailed description.
+
+[MIT]: http://opensource.org/licenses/MIT
+[BSD-3]: http://opensource.org/licenses/BSD-3-Clause
+[file an issue]: https://github.com/15bonte/cell_cycle_classification/issues
+[tox]: https://tox.readthedocs.io/en/latest/
+[pip]: https://pypi.org/project/pip/
+[PyPI]: https://pypi.org/
+[Anaconda]: https://www.anaconda.com/products/distribution
+[NVIDIA]: https://www.nvidia.com/Download/index.aspx?lang=en-us
+[conda]: https://docs.conda.io/en/latest/
