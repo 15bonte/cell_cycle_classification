@@ -57,10 +57,18 @@ class FucciVAEModelParams(VAEModelParams):
         self.fucci_points = ""  # very (very) specific json file with points values
 
         # Create data, models and results folders
+        self.reset_folders()
+
+    def reset_folders(self) -> None:
+        """Reset folders to default paths."""
+        self.data_dir = create_folder("images")
+        self.reset_training_folders()
+
+    def reset_training_folders(self) -> None:
+        """Reset training folders to default paths."""
         self.models_folder = create_folder("models")
         self.tensorboard_folder_path = create_folder("tensorboard")
         self.output_dir = create_folder("predictions")
-        self.data_dir = create_folder("images")
 
     def update(self, args=None):
         if args is not None:
