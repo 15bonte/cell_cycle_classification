@@ -34,17 +34,20 @@ class NucleusIdContainer:
 
             # Some have "_c", some not
             if "_c" in nucleus_id:
-                nucleus_id, phase = nucleus_id.split("_c")
+                nucleus_id, phase = nucleus_id.split("_c")[:2]
                 self.phase = int(phase)
             else:
                 self.phase = -1
 
             # NB: should be 11, be maybe some nucleus id are longer than 6 digits
-            assert len(nucleus_id) in [11, 12]
-
-            self.track_id = int(nucleus_id[:3])
-            self.frame = int(nucleus_id[3:6])
-            self.spot_id = int(nucleus_id[6:])
+            if len(nucleus_id) in [11, 12]:
+                self.track_id = int(nucleus_id[:3])
+                self.frame = int(nucleus_id[3:6])
+                self.spot_id = int(nucleus_id[6:])
+            else:  # other cases
+                self.track_id = 0
+                self.frame = 0
+                self.spot_id = int(nucleus_id)
 
     def init_from_spot(self, spot, track_spots):
         track_id = get_track_id(track_spots, int(spot["@ID"]))
