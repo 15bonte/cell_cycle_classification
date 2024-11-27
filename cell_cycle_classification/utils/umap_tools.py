@@ -33,7 +33,7 @@ def get_predictions_names(
     )
 
     # Iterate over data loader to get classes, names, probabilities
-    predictions, classes, names = [], [], []
+    predictions, classes, names, areas, edges = [], [], [], [], []
     for dl_element in data_loader:
         # Get indexes depending on model
         try:
@@ -41,6 +41,11 @@ def get_predictions_names(
         except TypeError:
             indexes = dl_element.index  # Pix2Pix
         indexes = indexes.detach().numpy()
+
+        local_areas = list(dl_element["area"].detach().numpy())
+        areas.extend(local_areas)
+        local_edges = list(dl_element["edge"].detach().numpy())
+        edges.extend(local_edges)
 
         for idx in indexes:
             filename = data_loader.dataset.names[idx]
@@ -54,18 +59,19 @@ def get_predictions_names(
             )
             if np.max(one_hot_probabilities) == 0:
                 # This point is not labeled - skip it
-                all_predictions = np.delete(all_predictions, 0, axis=0)
+                all_predictions = all_predictions[1:]
                 continue
 
             classes.append(np.argmax(one_hot_probabilities))
             names.append(f"{filename}\n{local_probabilities}")
-            predictions.append(all_predictions[0])
 
-            all_predictions = np.delete(all_predictions, 0, axis=0)
+            predictions.append(all_predictions[0])
+            all_predictions = all_predictions[1:]
 
     assert all_predictions.shape[0] == 0  # All predictions should have been used
+    assert len(predictions) == len(classes) == len(names) == len(areas)
 
-    return predictions, classes, names
+    return predictions, classes, names, {"areas": areas, "edges": edges}
 
 
 def save_htlm(data: dict, path: str) -> None:
@@ -101,7 +107,7 @@ def run_predictions(data_loader: DataLoader, manager, post_processing=None) -> d
     """Perform encoder predictions given data loader."""
 
     print("Run predictions")
-    (predictions, classes, names) = get_predictions_names(
+    (predictions, classes, names, _) = get_predictions_names(
         manager, data_loader, post_processing=post_processing
     )
     predictions = np.array(predictions)
