@@ -14,6 +14,21 @@ from cnn_framework.utils.augmentations.clip import Clip
 from .nucleus_id_container import NucleusIdContainer
 
 
+def has_one_on_edge(arr):
+    """
+    Checks if a 2D array contains a >0 on its edges (first/last row or column).
+    """
+    # Check first and last rows
+    if np.any(arr[0, :] > 0) or np.any(arr[-1, :] > 0):
+        return 1
+
+    # Check first and last columns
+    if np.any(arr[:, 0] > 0) or np.any(arr[:, -1] > 0):
+        return 1
+
+    return 0
+
+
 class FucciVAEDataSet(AbstractDataSet):
     """Data set for self-supervised learning."""
 
@@ -157,10 +172,11 @@ class FucciVAEDataSet(AbstractDataSet):
         # Adjacent DAPI
         nb_adjacent = 1 if self.params.gamma > 0 else 0
         merged, _, _ = self.get_image_sequence(filename, nb_adjacent=nb_adjacent)
+        mask = merged[nb_adjacent].additional  # CYX
 
         if self.params.delta > 0:
             nb_stacks = len(self.params.z_indexes)
-            mask = merged[nb_adjacent].additional  # CYX
+
             fucci_red_avg = np.mean(merged[nb_adjacent].target[:nb_stacks][mask > 0])
             fucci_green_avg = np.mean(
                 merged[nb_adjacent].target[nb_stacks : 2 * nb_stacks][mask > 0]
@@ -169,6 +185,7 @@ class FucciVAEDataSet(AbstractDataSet):
             fucci_red_avg = 0
             fucci_green_avg = 0
 
+        height, width = self.params.input_dimensions.to_tuple(False)
         return DatasetOutputVAE(
             data=merged[nb_adjacent].input,
             target=(
@@ -188,6 +205,11 @@ class FucciVAEDataSet(AbstractDataSet):
             fucci=np.array([fucci_red_avg, fucci_green_avg]),
             track_id=NucleusIdContainer(filename).get_video_track_id(),
             phase=NucleusIdContainer(filename).phase,
+            area=np.sum(mask[0] > 0) / (height * width),
+            edge=has_one_on_edge(mask[0]),
+            dapi=np.mean(merged[nb_adjacent].input[mask > 0]),
+            fucci_red=fucci_red_avg,
+            fucci_green=fucci_green_avg,
         )
 
 
