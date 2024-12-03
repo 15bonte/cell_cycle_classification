@@ -90,7 +90,7 @@ class NucleusIdContainer:
     def get_file_name(self, ext=".tiff") -> str:
         """Return the file name of corresponding nucleus."""
         id_str = self.get_id_str()
-        core_file_name = self.video_id + "_n" + id_str
+        core_file_name = str(self.video_id) + "_n" + id_str
         if self.phase > -1:
             core_file_name += "_c" + str(self.phase)
         return core_file_name + ext
