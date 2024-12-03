@@ -65,6 +65,16 @@ class NucleusIdContainer:
         self.frame = int(spot["@FRAME"])
         self.spot_id = int(spot["@ID"])
 
+    def init_from_values(
+        self, video_id: int, spot_id: int, frame=0, track_id=0, phase=-1
+    ) -> None:
+        """Initialize from values."""
+        self.video_id = video_id
+        self.track_id = track_id
+        self.frame = frame
+        self.spot_id = spot_id
+        self.phase = phase
+
     def get_id_str(self) -> str:
         """Return the nucleus number as a string."""
         assert self.track_id is not None
@@ -76,6 +86,14 @@ class NucleusIdContainer:
         spot_id = str(self.spot_id).rjust(5, "0")
 
         return track_id + frame + spot_id
+
+    def get_file_name(self, ext=".tiff") -> str:
+        """Return the file name of corresponding nucleus."""
+        id_str = self.get_id_str()
+        core_file_name = self.video_id + "_n" + id_str
+        if self.phase > -1:
+            core_file_name += "_c" + str(self.phase)
+        return core_file_name + ext
 
     def get_video_track_id(self) -> int:
         """Return the video track id as an int."""
