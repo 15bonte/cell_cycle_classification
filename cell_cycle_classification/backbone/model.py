@@ -88,7 +88,9 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
 
         std = torch.exp(0.5 * log_var)
         z, _ = self._sample_gauss(mu, std)
-        recon = self.decoder(z)["reconstruction"]
+        decoder_output = self.decoder(z)
+
+        recon = decoder_output["reconstruction"]
 
         recon_x = recon[:, : x.shape[1], :, :]  # B, C, H, W
         recon_fucci = recon[:, x.shape[1] :, :, :]  # B, C, H, W
@@ -100,7 +102,7 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
 
         # Predict average FUCCI values
         prediction_loss = self._fucci_avg_prediction_loss(
-            encoder_output.fucci, inputs["fucci"]
+            decoder_output.fucci, inputs["fucci"]
         )
         loss = loss + prediction_loss
 

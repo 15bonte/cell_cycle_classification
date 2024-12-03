@@ -172,6 +172,9 @@ class ResnetDecoder(BaseDecoder):
             nn.Sigmoid(),
         )
 
+        # FUCCI prediction from latent representation
+        self.fucci = nn.Sequential(nn.Linear(params.latent_dim, 2), nn.Sigmoid())
+
     def _make_layer(
         self,
         block: Type[BasicBlockDec],
@@ -229,6 +232,8 @@ class ResnetDecoder(BaseDecoder):
         return nn.Sequential(*layers)
 
     def _forward_impl(self, z: Tensor) -> Tensor:
+        fucci = self.fucci(z)
+
         x = self.fc(z).reshape(
             z.shape[0],
             512,
@@ -242,7 +247,7 @@ class ResnetDecoder(BaseDecoder):
         x = self.layer1(x)
 
         reconstruction = self.head(x)
-        output = ModelOutput(reconstruction=reconstruction)
+        output = ModelOutput(reconstruction=reconstruction, fucci=fucci)
 
         return output
 
