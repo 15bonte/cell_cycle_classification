@@ -19,7 +19,7 @@ def get_predictions_names(
 
     # Return empty results if data set is empty
     if len(data_loader.dataset.names) == 0:
-        return None, [], []
+        return None, [], [], {"areas": [], "edges": []}
 
     # Get predictions
     all_predictions = np.array(
@@ -42,12 +42,10 @@ def get_predictions_names(
             indexes = dl_element.index  # Pix2Pix
         indexes = indexes.detach().numpy()
 
-        local_areas = list(dl_element["area"].detach().numpy())
-        areas.extend(local_areas)
-        local_edges = list(dl_element["edge"].detach().numpy())
-        edges.extend(local_edges)
+        local_areas = dl_element["area"].detach().numpy()
+        local_edges = dl_element["edge"].detach().numpy()
 
-        for idx in indexes:
+        for idx, area, edge in zip(indexes, local_areas, local_edges):
             filename = data_loader.dataset.names[idx]
 
             # Read probabilities and class from filename
@@ -67,6 +65,9 @@ def get_predictions_names(
 
             predictions.append(all_predictions[0])
             all_predictions = all_predictions[1:]
+
+            areas.append(area)
+            edges.append(edge)
 
     assert all_predictions.shape[0] == 0  # All predictions should have been used
     assert len(predictions) == len(classes) == len(names) == len(areas)
