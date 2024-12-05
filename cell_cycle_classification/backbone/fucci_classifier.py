@@ -38,7 +38,7 @@ class FucciClassifier(nn.Module):
         # self.target_layer = "encoder.conv_layers.layer4[-1]"
 
     def _load_backbone(self, folder: str, pretraining: str):
-        assert pretraining == "vae"
+        assert "vae" in pretraining
         return FucciVAE.load_from_folder(folder)
 
     def forward(self, x):

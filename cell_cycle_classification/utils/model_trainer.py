@@ -215,7 +215,7 @@ class ModelTrainer:
         return self._core_classification_train(params, args)
 
     def _load_backbone(self, pretraining, folder):
-        assert pretraining == "vae"
+        assert "vae" in pretraining
         vae_model = FucciVAE.load_from_folder(folder)
         return vae_model
 
