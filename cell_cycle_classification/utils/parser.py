@@ -25,7 +25,7 @@ class FucciVAEParser(VAEParser):
         )
         self.arguments_parser.add_argument("--pretraining", default="vae")
         self.arguments_parser.add_argument(
-            "--freeze_backbone", action=argparse.BooleanOptionalAction, default=False
+            "--freeze_backbone", action=argparse.BooleanOptionalAction, default=True
         )
         self.arguments_parser.add_argument("--warmup", default=0)
         self.arguments_parser.add_argument("--number_components", default=50)
