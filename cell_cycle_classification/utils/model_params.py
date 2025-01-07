@@ -1,11 +1,13 @@
 import os
+from huggingface_hub import snapshot_download
+
 from cnn_framework.utils.dimensions import Dimensions
 from cnn_framework.utils.model_params.vae_model_params import VAEModelParams
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def create_folder(name: str):
+def get_folder(name: str) -> str:
     """
     Create a folder if it does not exist.
     """
@@ -61,14 +63,14 @@ class FucciVAEModelParams(VAEModelParams):
 
     def reset_folders(self) -> None:
         """Reset folders to default paths."""
-        self.data_dir = create_folder("images")
+        self.data_dir = get_folder("images")
         self.reset_training_folders()
 
     def reset_training_folders(self) -> None:
         """Reset training folders to default paths."""
-        self.models_folder = create_folder("models")
-        self.tensorboard_folder_path = create_folder("tensorboard")
-        self.output_dir = create_folder("predictions")
+        self.models_folder = get_folder("models")
+        self.tensorboard_folder_path = get_folder("tensorboard")
+        self.output_dir = get_folder("predictions")
 
     def update(self, args=None):
         if args is not None:
@@ -104,3 +106,40 @@ class FucciVAEModelParams(VAEModelParams):
             + f" | encoder name {self.encoder_name}"
         )
         return parameters
+
+    def load_trained_models(self, models_folder) -> None:
+        """
+        Load trained models.
+        """
+        snapshot_download(
+            "thomas-bonte/cell_cycle_classification",
+            local_dir=models_folder,
+        )
+
+    def load_vae_model(self) -> None:
+        """
+        Load trained VAE model.
+        """
+        models_folder = get_folder("models")
+        vae_model_folder = os.path.join(models_folder, "20241031-112222-4998324")
+        if not os.path.exists(vae_model_folder):
+            self.load_trained_models(models_folder)
+
+        self.models_folder = vae_model_folder
+        self.model_load_path = vae_model_folder
+
+    def load_classification_model(self) -> None:
+        """
+        Load trained classification model.
+        """
+        models_folder = get_folder("models")
+        classification_model_folder = os.path.join(
+            models_folder, "20241031-112222-4998324"
+        )
+        if not os.path.exists(classification_model_folder):
+            self.load_trained_models(models_folder)
+
+        self.models_folder = classification_model_folder
+        self.model_load_path = os.path.join(
+            classification_model_folder, "early_stopping_cycle_classification.pt"
+        )

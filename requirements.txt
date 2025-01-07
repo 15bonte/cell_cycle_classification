@@ -4,3 +4,4 @@ pytorch_metric_learning
 umap-learn
 umap-learn[plot]
 plotly
+huggingface_hub
