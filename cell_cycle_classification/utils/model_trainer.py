@@ -32,6 +32,7 @@ from cnn_framework.utils.data_loader_generators.data_loader_generator import (
 )
 from cnn_framework.utils.enum import PredictMode
 
+
 from ..backbone.decoder_resnet import ResnetDecoder
 from ..backbone.encoder_resnet import ResnetEncoder
 from ..backbone.fucci_classifier import FucciClassifier
@@ -49,10 +50,13 @@ from .euclidean_matching_metric import (
 from .tools import get_final_model_path, get_vae_config
 from .umap_tools import fit_umap_on_train, predict_umap
 from .vae_model_manager import VAEModelManager
+from .model_params import FucciVAEModelParams
 
 
 class ModelTrainer:
-    def ssl_train(self, args, params):
+
+    def ssl_train(self, args, params: FucciVAEModelParams):
+        params.check_ready()
         assert args.pretraining == "vae"
 
         print("\n### Training VAE on current data set ###\n")

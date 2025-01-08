@@ -145,3 +145,13 @@ class FucciVAEModelParams(VAEModelParams):
         self.model_load_path = os.path.join(
             classification_model_folder, "early_stopping_cycle_classification.pt"
         )
+
+    def check_ready(self) -> None:
+        """
+        Check if the model is ready to be trained.
+        """
+        # Check if data folder is empty
+        if not os.listdir(self.data_dir):
+            raise ValueError(
+                f"Data folder is empty. Images can be downloaded https://zenodo.org/records/14614787 from and unzipped in {self.data_dir}."
+            )
