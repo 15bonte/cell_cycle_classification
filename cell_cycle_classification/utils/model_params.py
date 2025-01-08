@@ -58,6 +58,8 @@ class FucciVAEModelParams(VAEModelParams):
         self.display_umap = False
         self.fucci_points = ""  # very (very) specific json file with points values
 
+        self.num_workers = 0  # for some reason, necessary for Windows
+
         # Create data, models and results folders
         self.reset_folders()
 
