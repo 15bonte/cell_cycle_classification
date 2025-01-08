@@ -136,7 +136,7 @@ class FucciVAEModelParams(VAEModelParams):
         """
         models_folder = get_folder("models")
         classification_model_folder = os.path.join(
-            models_folder, "20241031-112222-4998324"
+            models_folder, "20241101-055937-4998324"
         )
         if not os.path.exists(classification_model_folder):
             self.load_trained_models(models_folder)
