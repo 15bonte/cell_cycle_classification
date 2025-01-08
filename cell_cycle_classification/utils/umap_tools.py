@@ -2,6 +2,7 @@
 
 import os
 import numpy as np
+from tqdm import tqdm
 import umap
 import umap.plot
 from matplotlib import pyplot as plt
@@ -19,7 +20,7 @@ def get_predictions_names(
 
     # Return empty results if data set is empty
     if len(data_loader.dataset.names) == 0:
-        return None, [], [], {"areas": [], "edges": []}
+        return None, [], [], {"areas": [], "edges": [], "dapis": []}
 
     # Get predictions
     all_predictions = np.array(
@@ -33,8 +34,8 @@ def get_predictions_names(
     )
 
     # Iterate over data loader to get classes, names, probabilities
-    predictions, classes, names, areas, edges = [], [], [], [], []
-    for dl_element in data_loader:
+    predictions, classes, names, areas, edges, dapis = [], [], [], [], [], []
+    for dl_element in tqdm(data_loader):
         # Get indexes depending on model
         try:
             indexes = dl_element["id"]  # VAE
@@ -44,8 +45,11 @@ def get_predictions_names(
 
         local_areas = dl_element["area"].detach().numpy()
         local_edges = dl_element["edge"].detach().numpy()
+        local_dapis = dl_element["dapi"].detach().numpy()
 
-        for idx, area, edge in zip(indexes, local_areas, local_edges):
+        for idx, area, edge, dapi in zip(
+            indexes, local_areas, local_edges, local_dapis
+        ):
             filename = data_loader.dataset.names[idx]
 
             # Read probabilities and class from filename
@@ -68,11 +72,12 @@ def get_predictions_names(
 
             areas.append(area)
             edges.append(edge)
+            dapis.append(dapi)
 
     assert all_predictions.shape[0] == 0  # All predictions should have been used
     assert len(predictions) == len(classes) == len(names) == len(areas)
 
-    return predictions, classes, names, {"areas": areas, "edges": edges}
+    return predictions, classes, names, {"areas": areas, "edges": edges, "dapis": dapis}
 
 
 def save_htlm(data: dict, path: str) -> None:
