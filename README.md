@@ -66,6 +66,14 @@ conda activate cell_cycle_classification
 pip install cell_cycle_classification --upgrade
 ```
 
+## Notebooks
+
+Notebooks are provided as examples to demonstrate how to train and test our model. You can experiment with them using a subset of our data, available from [Zenodo].   
+
+- Train: this notebook shows the training of both VAE and classification models.
+- Eval VAE: this notebook evaluates image reconstruction accuracy and time consistency from our pretrained VAE model, available from [HuggingFace].
+- Eval classifier: similarly, this notebook evaluates cell cycle classification accuracy from our pretrained classification model, available from [HuggingFace.]
+
 ## Development
 
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.
@@ -87,3 +95,6 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [Anaconda]: https://www.anaconda.com/products/distribution
 [NVIDIA]: https://www.nvidia.com/Download/index.aspx?lang=en-us
 [conda]: https://docs.conda.io/en/latest/
+[HuggingFace]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241031-112222-4998324
+[HuggingFace.]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241101-055937-4998324
+[Zenodo]: https://zenodo.org/records/14614787

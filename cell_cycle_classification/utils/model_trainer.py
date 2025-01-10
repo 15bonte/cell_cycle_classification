@@ -32,6 +32,7 @@ from cnn_framework.utils.data_loader_generators.data_loader_generator import (
 )
 from cnn_framework.utils.enum import PredictMode
 
+
 from ..backbone.decoder_resnet import ResnetDecoder
 from ..backbone.encoder_resnet import ResnetEncoder
 from ..backbone.fucci_classifier import FucciClassifier
@@ -49,10 +50,13 @@ from .euclidean_matching_metric import (
 from .tools import get_final_model_path, get_vae_config
 from .umap_tools import fit_umap_on_train, predict_umap
 from .vae_model_manager import VAEModelManager
+from .model_params import FucciVAEModelParams
 
 
 class ModelTrainer:
-    def ssl_train(self, args, params):
+
+    def ssl_train(self, args, params: FucciVAEModelParams):
+        params.check_ready()
         assert args.pretraining == "vae"
 
         print("\n### Training VAE on current data set ###\n")
@@ -259,7 +263,7 @@ class ModelTrainer:
         loader_generator = ClassifierDataLoaderGenerator(
             params, FucciClassificationDataSet, ClassificationDataManager
         )
-        train_dl, val_dl, test_dl = loader_generator.generate_data_loader()
+        train_dl, val_dl, _ = loader_generator.generate_data_loader()
 
         # Load pretrained model
         model = self._get_pretrained_model(params, args)
@@ -285,13 +289,6 @@ class ModelTrainer:
                 params.models_folder, "mean_std.json"
             ),  # done to avoid usual mean_std computation
         )
-
-        print("\nPredicting with early stopping model.")
-        # Update model with saved one
-        manager.model.load_state_dict(load(manager.model_save_path_early_stopping))
-        manager.predict(test_dl)
-        manager.write_useful_information()
-        return manager.training_information.score
 
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
