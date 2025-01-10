@@ -5,7 +5,7 @@ import os
 import shutil
 from copy import deepcopy
 import pickle
-from torch import optim, load
+from torch import optim
 import torch.nn as nn
 import torch.distributed as dist
 
