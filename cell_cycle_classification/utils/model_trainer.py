@@ -263,7 +263,7 @@ class ModelTrainer:
         loader_generator = ClassifierDataLoaderGenerator(
             params, FucciClassificationDataSet, ClassificationDataManager
         )
-        train_dl, val_dl, test_dl = loader_generator.generate_data_loader()
+        train_dl, val_dl, _ = loader_generator.generate_data_loader()
 
         # Load pretrained model
         model = self._get_pretrained_model(params, args)
@@ -289,13 +289,6 @@ class ModelTrainer:
                 params.models_folder, "mean_std.json"
             ),  # done to avoid usual mean_std computation
         )
-
-        print("\nPredicting with early stopping model.")
-        # Update model with saved one
-        manager.model.load_state_dict(load(manager.model_save_path_early_stopping))
-        manager.predict(test_dl)
-        manager.write_useful_information()
-        return manager.training_information.score
 
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
