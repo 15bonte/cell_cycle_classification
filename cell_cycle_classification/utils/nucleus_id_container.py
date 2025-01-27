@@ -104,3 +104,15 @@ class NucleusIdContainer:
         track_id = str(self.track_id).rjust(3, "0")
 
         return int(video_id + track_id)
+
+    def get_phase_str(self) -> str:
+        """Return the cell cycle phase as a string."""
+        if self.phase == -1:
+            return "-"
+        if self.phase == 0:
+            return "G1"
+        if self.phase == 1:
+            return "S"
+        if self.phase == 2:
+            return "G2"
+        raise ValueError(f"Phase {self.phase} not recognized.")
