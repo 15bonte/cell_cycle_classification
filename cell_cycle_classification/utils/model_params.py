@@ -156,5 +156,5 @@ class FucciVAEModelParams(VAEModelParams):
         # Else, check if data folder is empty
         if not os.listdir(self.data_dir):
             raise ValueError(
-                f"Data folder is empty. Images can be downloaded https://zenodo.org/records/14614787 from and unzipped in {self.data_dir}."
+                f"Data folder {self.data_dir} is empty. Images can be downloaded https://zenodo.org/records/14614787 from and unzipped in {self.data_dir}."
             )
