@@ -137,9 +137,9 @@ class FucciVAEDataSet(AbstractDataSet):
         # Initialize sequence and pixel masks
         height, width = self.params.input_dimensions.to_tuple(False)
         nb_channels = len(self.params.z_indexes) * len(self.params.c_indexes)
-        sequence_mask = np.ones((2 * nb_adjacent + 1), dtype=np.bool)
+        sequence_mask = np.ones((2 * nb_adjacent + 1), dtype=bool)
         pixel_mask = np.ones(
-            (2 * nb_adjacent + 1, nb_channels, height, width), dtype=np.bool
+            (2 * nb_adjacent + 1, nb_channels, height, width), dtype=bool
         )
 
         image_data = []
