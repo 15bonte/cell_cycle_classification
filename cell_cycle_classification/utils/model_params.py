@@ -150,7 +150,10 @@ class FucciVAEModelParams(VAEModelParams):
         """
         Check if the model is ready to be trained.
         """
-        # Check if data folder is empty
+        # Check if data folder is a h5 file
+        if "h5" in self.data_dir:
+            return
+        # Else, check if data folder is empty
         if not os.listdir(self.data_dir):
             raise ValueError(
                 f"Data folder is empty. Images can be downloaded https://zenodo.org/records/14614787 from and unzipped in {self.data_dir}."
