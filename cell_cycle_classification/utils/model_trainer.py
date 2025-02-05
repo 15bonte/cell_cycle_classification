@@ -212,12 +212,12 @@ class ModelTrainer:
             params.models_folder,
         )
 
+        print("\n\n### Classification ###\n")
+        self._core_classification_train(params, args)
+    
         if args.display_umap:
             print("\n### UMAP computation ###\n")
             self._display_latent_space_umap(params)
-
-        print("\n\n### Classification ###\n")
-        return self._core_classification_train(params, args)
 
     def _load_backbone(self, pretraining, folder):
         assert "vae" in pretraining
@@ -290,6 +290,8 @@ class ModelTrainer:
                 params.models_folder, "mean_std.json"
             ),  # done to avoid usual mean_std computation
         )
+
+        # If not freeze_backbone, replace VAE model
 
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
