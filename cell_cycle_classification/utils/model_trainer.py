@@ -290,6 +290,8 @@ class ModelTrainer:
             ),  # done to avoid usual mean_std computation
         )
 
+        # If not freeze_backbone, replace VAE model
+
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
         return FucciClassifier(params, args.freeze_backbone)
