@@ -215,11 +215,13 @@ class ModelTrainer:
         )
 
         print("\n\n### Classification ###\n")
-        self._core_classification_train(params, args)
+        classification_score = self._core_classification_train(params, args)
 
         if args.display_umap:
             print("\n### UMAP computation ###\n")
             self._display_latent_space_umap(params)
+
+        return classification_score
 
     def _load_backbone(self, pretraining, folder):
         assert "vae" in pretraining
@@ -266,7 +268,7 @@ class ModelTrainer:
         loader_generator = ClassifierDataLoaderGenerator(
             params, FucciClassificationDataSet, ClassificationDataManager
         )
-        train_dl, val_dl, _ = loader_generator.generate_data_loader()
+        train_dl, val_dl, test_dl = loader_generator.generate_data_loader()
 
         # Load pretrained model
         model = self._get_pretrained_model(params, args)
@@ -301,6 +303,26 @@ class ModelTrainer:
                     inspect.getmodule(manager.model.encoder)
                 )
                 cloudpickle.dump(manager.model.encoder, fp)
+
+            # Evaluate time consistency
+            loader_generator_vae = DataLoaderGenerator(
+                params, FucciVAEDataSet, DefaultDataManager
+            )
+            _, _, test_dl_vae = loader_generator_vae.generate_data_loader(
+                shuffle_test=True
+            )  # shuffled to evaluate EuclideanMatchingMetric
+            my_vae_config = get_vae_config(params)
+            vae_model = self._get_vae_model(params, my_vae_config, adapt_decoder=False)
+            vae_manager = VAEModelManager(vae_model, params, EuclideanMatchingMetric)
+            vae_manager.params.gamma = (
+                1  # to ensure adjacent embedding will be computed
+            )
+            vae_manager.predict(test_dl_vae, predict_mode=PredictMode.GetEmbeddingMSE)
+
+        # Predict on test set
+        manager.predict(test_dl)
+
+        return manager.training_information.score
 
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
