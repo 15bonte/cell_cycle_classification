@@ -1,5 +1,6 @@
 """Module performing both self-supervised and classification learning."""
 
+import inspect
 import json
 import os
 import shutil
@@ -8,6 +9,7 @@ import pickle
 from torch import optim
 import torch.nn as nn
 import torch.distributed as dist
+import cloudpickle
 
 
 from pythae.trainers import BaseTrainerConfig
@@ -214,7 +216,7 @@ class ModelTrainer:
 
         print("\n\n### Classification ###\n")
         self._core_classification_train(params, args)
-    
+
         if args.display_umap:
             print("\n### UMAP computation ###\n")
             self._display_latent_space_umap(params)
@@ -292,6 +294,13 @@ class ModelTrainer:
         )
 
         # If not freeze_backbone, replace VAE model
+        if not args.freeze_backbone:
+            encoder_folder_path = get_final_model_path(params.model_pretrained_path)
+            with open(os.path.join(encoder_folder_path, "encoder.pkl"), "wb") as fp:
+                cloudpickle.register_pickle_by_value(
+                    inspect.getmodule(manager.model.encoder)
+                )
+                cloudpickle.dump(manager.model.encoder, fp)
 
     def _get_pretrained_model(self, params, args):
         assert "vae" in args.pretraining
