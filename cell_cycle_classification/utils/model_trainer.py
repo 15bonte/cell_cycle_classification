@@ -305,6 +305,9 @@ class ModelTrainer:
                 cloudpickle.dump(manager.model.encoder, fp)
 
             # Evaluate time consistency
+            params.batch_size = (
+                128  # to match with the difficulty of VAE top-1 retrieval
+            )
             loader_generator_vae = DataLoaderGenerator(
                 params, FucciVAEDataSet, DefaultDataManager
             )
