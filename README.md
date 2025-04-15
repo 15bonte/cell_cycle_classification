@@ -10,7 +10,7 @@
 
 Self-supervised learning method for cell cycle phase classification from microscopy data.
 
-![figure](architecture.pdf)
+![figure](architecture.png)
 
 ## Installation
 
