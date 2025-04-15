@@ -4,7 +4,7 @@
 
 <!-- [![codecov](https://codecov.io/gh/15bonte/cell_cycle_classification/branch/main/graph/badge.svg?token=cell_cycle_classification_token_here)](https://codecov.io/gh/15bonte/cell_cycle_classification) -->
 
-[![CI](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml/badge.svg)](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml)
+<!-- [![CI](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml/badge.svg)](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml) -->
 [![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cell_cycle_classification/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cell_cycle_classification.svg?color=green)](https://pypi.org/project/cell_cycle_classification)
 
