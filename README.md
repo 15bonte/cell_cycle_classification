@@ -10,6 +10,8 @@
 
 Self-supervised learning method for cell cycle phase classification from microscopy data.
 
+[architecture.pdf](https://github.com/user-attachments/files/19757561/architecture.pdf)
+
 ## Installation
 
 ### Conda environment
