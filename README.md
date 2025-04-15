@@ -10,6 +10,8 @@
 
 Self-supervised learning method for cell cycle phase classification from microscopy data.
 
+![figure](architecture.png)
+
 ## Installation
 
 ### Conda environment
@@ -66,9 +68,9 @@ conda activate cell_cycle_classification
 pip install cell_cycle_classification --upgrade
 ```
 
-## Notebooks
+## Notebooks, models and data
 
-Notebooks are provided as examples to demonstrate how to train and test our model. You can experiment with them using a subset of our data, available from [Zenodo].   
+Notebooks are provided as examples to demonstrate how to train and test our model. You can experiment with them using a subset of our data, available from [Zenodo]. Complete dataset is available on the [BioImage Archive].   
 
 - Train: this notebook shows the training of both VAE and classification models.
 - Eval VAE: this notebook evaluates image reconstruction accuracy and time consistency from our pretrained VAE model, available from [HuggingFace].
@@ -98,3 +100,4 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [HuggingFace]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241031-112222-4998324
 [HuggingFace.]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241101-055937-4998324
 [Zenodo]: https://zenodo.org/records/14614787
+[BioImage Archive]: https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD1659
