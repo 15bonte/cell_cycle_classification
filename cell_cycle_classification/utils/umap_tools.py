@@ -14,7 +14,7 @@ from cnn_framework.utils.model_managers.model_manager import ModelManager
 
 
 def get_predictions_names(
-    manager: ModelManager, data_loader, post_processing=None, compute_own_mean_std=False
+    manager: ModelManager, data_loader, post_processing=None, compute_own_mean_std="no"
 ):
     """Get predictions and names from data loader."""
 
