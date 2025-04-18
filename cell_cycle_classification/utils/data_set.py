@@ -211,6 +211,7 @@ class FucciVAEDataSet(AbstractDataSet):
             area=np.sum(mask[0] > 0) / (height * width),
             edge=has_one_on_edge(mask[0]),
             dapi=np.mean(merged[nb_adjacent].input[mask > 0]),
+            dapi_total=np.mean(merged[nb_adjacent].input[mask > 0]),
             fucci_red=fucci_red_avg,
             fucci_green=fucci_green_avg,
         )
