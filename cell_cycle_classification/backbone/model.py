@@ -87,7 +87,8 @@ class FucciVAE(BetaVAE, DisentangledBetaVAE, VAMP):
         mu, log_var = encoder_output.embedding, encoder_output.log_covariance
 
         std = torch.exp(0.5 * log_var)
-        z, _ = self._sample_gauss(mu, std)
+        # z, _ = self._sample_gauss(mu, std)
+        z = mu
         decoder_output = self.decoder(z)
 
         recon = decoder_output["reconstruction"]
