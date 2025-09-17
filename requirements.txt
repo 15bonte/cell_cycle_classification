@@ -1,4 +1,5 @@
 cnn_framework
+segmentation-models-pytorch==0.3.0
 pythae
 pytorch_metric_learning
 umap-learn
