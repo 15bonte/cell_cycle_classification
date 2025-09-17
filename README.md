@@ -8,7 +8,7 @@
 [![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cell_cycle_classification/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cell_cycle_classification.svg?color=green)](https://pypi.org/project/cell_cycle_classification)
 
-Self-supervised learning method for cell cycle phase classification from microscopy data.
+Code associated to the paper "A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data" available on [bioRxiv].
 
 ![figure](architecture.png)
 
@@ -88,6 +88,21 @@ Release is performed by updating the version number in VERSION and pushing the c
 
 If you encounter any problems, please [file an issue] along with a detailed description.
 
+## Citation
+
+If you found our work useful, please consider citing:
+
+ ```
+@article{bonte2025deep,
+  title={A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data},
+  author={Bonte, Thomas and Pourcelot, Oriane and Safieddine, Adham and Slimani, Floric and Mueller, Florian and Weil, Dominique and Bertrand, Edouard and Walter, Thomas},
+  journal={bioRxiv},
+  pages={2025--05},
+  year={2025},
+  publisher={Cold Spring Harbor Laboratory}
+}
+ ```
+
 [MIT]: http://opensource.org/licenses/MIT
 [BSD-3]: http://opensource.org/licenses/BSD-3-Clause
 [file an issue]: https://github.com/15bonte/cell_cycle_classification/issues
@@ -101,3 +116,4 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [HuggingFace.]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241101-055937-4998324
 [Zenodo]: https://zenodo.org/records/14614787
 [BioImage Archive]: https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD1659
+[bioRxiv]: https://www.biorxiv.org/content/10.1101/2025.05.16.654306v2.full.pdf
