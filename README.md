@@ -5,6 +5,7 @@
 <!-- [![codecov](https://codecov.io/gh/15bonte/cell_cycle_classification/branch/main/graph/badge.svg?token=cell_cycle_classification_token_here)](https://codecov.io/gh/15bonte/cell_cycle_classification) -->
 
 <!-- [![CI](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml/badge.svg)](https://github.com/15bonte/cell_cycle_classification/actions/workflows/main.yml) -->
+
 [![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cell_cycle_classification/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cell_cycle_classification.svg?color=green)](https://pypi.org/project/cell_cycle_classification)
 
@@ -70,11 +71,12 @@ pip install cell_cycle_classification --upgrade
 
 ## Notebooks, models and data
 
-Notebooks are provided as examples to demonstrate how to train and test our model. You can experiment with them using a subset of our data, available from [Zenodo]. Complete dataset is available on the [BioImage Archive].   
+Notebooks are provided as examples to demonstrate how to train and test our model. You can experiment with them using a subset of our data, available from [Zenodo]. Complete dataset is available on the [BioImage Archive].
 
 - Train: this notebook shows the training of both VAE and classification models.
 - Eval VAE: this notebook evaluates image reconstruction accuracy and time consistency from our pretrained VAE model, available from [HuggingFace].
 - Eval classifier: similarly, this notebook evaluates cell cycle classification accuracy from our pretrained classification model, available from [HuggingFace.]
+- Predict cell cycle phase: this notebook predicts the cell cycle phase of a single image file, included in the repository. It uses our pretrained classification model, available from [HuggingFace.]
 
 ## Development
 

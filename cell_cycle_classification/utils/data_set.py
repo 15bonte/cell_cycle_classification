@@ -65,7 +65,6 @@ class FucciVAEDataSet(AbstractDataSet):
             #     min_height=self.params.data_set_size,
             #     min_width=self.params.data_set_size,
             #     border_mode=1,
-            #     fill=0,
             #     p=1,
             # ),
             # A.CenterCrop(
