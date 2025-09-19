@@ -65,7 +65,6 @@ class FucciVAEDataSet(AbstractDataSet):
                 min_height=self.params.data_set_size,
                 min_width=self.params.data_set_size,
                 border_mode=1,
-                value=0,
                 p=1,
             ),
             A.CenterCrop(
@@ -76,7 +75,7 @@ class FucciVAEDataSet(AbstractDataSet):
             A.Resize(
                 self.params.input_dimensions.width,
                 self.params.input_dimensions.height,
-                always_apply=True,
+                p=1,
             ),
             Clip(min_value=0, max_value=1),  # Necessary since decoder ends with sigmoid
         ]
