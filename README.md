@@ -36,7 +36,7 @@ Once in a dedicated environment, our package can be installed via [pip]:
 pip install cell_cycle_classification
 ```
 
-Alternatively, you can clone the github repo to access to notebooks.
+Alternatively, you can clone the github repo to get access to the notebooks.
 
 ```
 git clone https://github.com/15bonte/cell_cycle_classification.git
@@ -46,7 +46,7 @@ pip install -e .
 
 ### GPU
 
-We highly recommend to use GPU to speed up segmentation. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
+We highly recommend to use GPU to speed up training and inference. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
 
 Next we need to remove the CPU version of torch:
 
@@ -94,16 +94,16 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 
 If you found our work useful, please consider citing:
 
- ```
+```
 @article{bonte2025deep,
-  title={A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data},
-  author={Bonte, Thomas and Pourcelot, Oriane and Safieddine, Adham and Slimani, Floric and Mueller, Florian and Weil, Dominique and Bertrand, Edouard and Walter, Thomas},
-  journal={bioRxiv},
-  pages={2025--05},
-  year={2025},
-  publisher={Cold Spring Harbor Laboratory}
+ title={A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data},
+ author={Bonte, Thomas and Pourcelot, Oriane and Safieddine, Adham and Slimani, Floric and Mueller, Florian and Weil, Dominique and Bertrand, Edouard and Walter, Thomas},
+ journal={bioRxiv},
+ pages={2025--05},
+ year={2025},
+ publisher={Cold Spring Harbor Laboratory}
 }
- ```
+```
 
 [MIT]: http://opensource.org/licenses/MIT
 [BSD-3]: http://opensource.org/licenses/BSD-3-Clause
