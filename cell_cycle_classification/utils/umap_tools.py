@@ -14,7 +14,11 @@ from cnn_framework.utils.model_managers.model_manager import ModelManager
 
 
 def get_predictions_names(
-    manager: ModelManager, data_loader, post_processing=None, compute_own_mean_std="no"
+    manager: ModelManager,
+    data_loader,
+    post_processing=None,
+    compute_own_mean_std="no",
+    ignore_unlabeled=True,
 ):
     """Get predictions and names from data loader."""
 
@@ -59,8 +63,9 @@ def get_predictions_names(
             one_hot_probabilities = data_loader.dataset.read_output(
                 filename, one_hot=True
             )
-            if np.max(one_hot_probabilities) == 0:
-                # This point is not labeled - skip it
+
+            if np.max(one_hot_probabilities) == 0 and ignore_unlabeled:
+                # This point is not labeled
                 all_predictions = all_predictions[1:]
                 continue
 
@@ -75,7 +80,14 @@ def get_predictions_names(
             dapis.append(dapi)
 
     assert all_predictions.shape[0] == 0  # All predictions should have been used
-    assert len(predictions) == len(classes) == len(names) == len(areas)
+    assert (
+        len(predictions)
+        == len(classes)
+        == len(names)
+        == len(areas)
+        == len(edges)
+        == len(dapis)
+    )
 
     return predictions, classes, names, {"areas": areas, "edges": edges, "dapis": dapis}
 
