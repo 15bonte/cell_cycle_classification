@@ -46,7 +46,7 @@ pip install -e .
 
 ### GPU
 
-We highly recommend to use GPU to speed up training and inference. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
+Using a GPU is mandatory to speed up training and inference. To use your NVIDIA GPU, the first step is to download the dedicated driver from [NVIDIA].
 
 Next we need to remove the CPU version of torch:
 
