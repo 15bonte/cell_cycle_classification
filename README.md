@@ -9,7 +9,7 @@
 [![License BSD-3](https://img.shields.io/pypi/l/cut-detector.svg?color=green)](https://github.com/15bonte/cell_cycle_classification/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/cell_cycle_classification.svg?color=green)](https://pypi.org/project/cell_cycle_classification)
 
-Code associated to the paper "A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data" available on [bioRxiv].
+Code associated to the paper "A deep learning approach for time-consistent cell cycle phase prediction from microscopy data" published in [PLOS Computational Biology].
 
 ![figure](architecture.png)
 
@@ -96,12 +96,14 @@ If you found our work useful, please consider citing:
 
 ```
 @article{bonte2025deep,
- title={A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data},
- author={Bonte, Thomas and Pourcelot, Oriane and Safieddine, Adham and Slimani, Floric and Mueller, Florian and Weil, Dominique and Bertrand, Edouard and Walter, Thomas},
- journal={bioRxiv},
- pages={2025--05},
- year={2025},
- publisher={Cold Spring Harbor Laboratory}
+  title={A Deep Learning approach for time-consistent cell cycle phase prediction from microscopy data},
+  author={Bonte, Thomas and Pourcelot, Oriane and Safieddine, Adham and Slimani, Floric and Mueller, Florian and Weil, Dominique and Bertrand, Edouard and Walter, Thomas},
+  journal={PLOS Computational Biology},
+  volume={21},
+  number={12},
+  pages={e1013800},
+  year={2025},
+  publisher={Public Library of Science San Francisco, CA USA}
 }
 ```
 
@@ -118,4 +120,4 @@ If you found our work useful, please consider citing:
 [HuggingFace.]: https://huggingface.co/thomas-bonte/cell_cycle_classification/tree/main/20241101-055937-4998324
 [Zenodo]: https://zenodo.org/records/14614787
 [BioImage Archive]: https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD1659
-[bioRxiv]: https://www.biorxiv.org/content/10.1101/2025.05.16.654306v2.full.pdf
+[PLOS Computational Biology]: https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1013800
