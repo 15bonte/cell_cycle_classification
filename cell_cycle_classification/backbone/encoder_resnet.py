@@ -2,7 +2,7 @@
 
 from torch import nn
 import torch
-from torchvision.models import resnet18, ResNet18_Weights, resnet50, ResNet50_Weights
+from torchvision.models import resnet18, ResNet18_Weights, resnet50, ResNet50_Weights, ResNet
 
 from pythae.models.nn import BaseEncoder
 from pythae.models.base.base_utils import ModelOutput
@@ -10,7 +10,7 @@ from pythae.models.base.base_utils import ModelOutput
 from cnn_framework.utils.model_managers.utils.custom_get_encoder import get_encoder
 
 
-def redefine_first_layer(model: nn.Module, input_channels: int) -> None:
+def redefine_first_layer(model: ResNet, input_channels: int) -> None:
     """Redefine the first layer of the model to accept input_channels number of channels."""
     if input_channels >= 3:
         original_conv1_weights = model.conv1.weight.data  # Shape: (64, 3, 7, 7)
