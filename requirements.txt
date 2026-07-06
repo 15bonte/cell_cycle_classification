@@ -6,3 +6,4 @@ umap-learn
 umap-learn[plot]
 plotly
 huggingface_hub
+numpy<2.0
